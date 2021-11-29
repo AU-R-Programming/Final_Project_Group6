@@ -23,7 +23,6 @@ df$month <- as.numeric(as.factor(df$month))
 df$poutcome <- as.numeric(as.factor(df$poutcome))
 df$y <- as.numeric(as.factor(df$y))
 
-
 x <- df[, -which(names(df) == "y")]
 y <- df$y
 ```
