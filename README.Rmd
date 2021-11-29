@@ -3,7 +3,7 @@ output: github_document
 ---
 
 # FinalProjectGroup6
-[Package Repository: FinalProjectGroup6](https://github.com/AU-R-Programming/Final_Project_Group6)
+[Package Repository: Final_Project_Group6](https://github.com/AU-R-Programming/Final_Project_Group6)
 
 Before running our linear regression model, it is necessary to initialize the two input variables:\
   `x`: matrix with number of rows representing the number of response (explanatory) variable\
