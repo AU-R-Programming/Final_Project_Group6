@@ -1,0 +1,15 @@
+Package: FinalProjectGroup6
+Type: Package
+Title: Linear Regression Group 6
+Version: 0.1.0
+Authors@R: c(
+    person("Clayton", "Haley", email = "cch0045@auburn.edu", role = c("aut", "cre")),
+    person("Ukamaka", "Victoria", "Nnyaba", role = "aut"),
+    person("Robert", "Fett", role = "aut"))
+Maintainer: Clayton Haley <cch0045@auburn.edu>
+Description: Implements simple linear regression and evaluates the model on several metrics. 
+    Different plots for the residuals are also available.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
