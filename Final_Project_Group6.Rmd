@@ -8,6 +8,7 @@ output: html_document
 
 ## Linear Regression
 
+The main cost function we are trying to minimize.
 ```{r}
 # defining the cost function
 minimize = function(y, X, beta0) {
@@ -20,7 +21,7 @@ our_lm = function(y, X, alpha = 0.05) {
   
   # Make sure data formats are appropriate
   y <- as.vector(y)
-  covariates <- as.matrix(X)
+  X <- as.matrix(X)
   
   # Define parameters
   n <- length(y)
@@ -74,11 +75,23 @@ our_lm = function(y, X, alpha = 0.05) {
 ```
 
 
-```{r initialize}
-x <- matrix(rnorm(400), ncol = 4) # so this is a 100x4 predictor matrix 
-y <- rnorm(100)
-model <- our_lm(y, X, alpha = 0.05)
-model
+```{r initialize, results=TRUE}
+df <- read.csv2("bank.csv", header = TRUE)
+df$job <- as.numeric(as.factor(df$job))
+df$marital <- as.numeric(as.factor(df$marital))
+df$education <- as.numeric(as.factor(df$education))
+df$default <- as.numeric(as.factor(df$default))
+df$housing <- as.numeric(as.factor(df$housing))
+df$loan <- as.numeric(as.factor(df$loan))
+df$contact <- as.numeric(as.factor(df$contact))
+df$month <- as.numeric(as.factor(df$month))
+df$poutcome <- as.numeric(as.factor(df$poutcome))
+df$y <- as.numeric(as.factor(df$y))
+
+x <- df[, -which(names(df) == "y")]
+y <- df$y
+model <- our_lm(y, x, alpha = 0.05)
+model$variance_beta
 ```
 
 

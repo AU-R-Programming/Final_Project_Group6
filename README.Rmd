@@ -4,21 +4,34 @@ output: github_document
 
 # FinalProjectGroup6
 
-Before running our linear regression model, it is necessary to initialize the two input variables:
-  `x`: matrix with number of rows representing the number of response (explanatory) variable
-  `y`: vector representing the predictions
+Before running our linear regression model, it is necessary to initialize the two input variables:\
+  `x`: matrix with number of rows representing the number of response (explanatory) variable\
+  `y`: vector representing the predictions\
+  
+We are using the `bank.csv` dataset as an example.
   
 ```{r}
 library(FinalProjectGroup6)
-x <- matrix(rnorm(400), ncol = 4)
-y <- rnorm(100)
+df <- read.csv2("bank.csv", header = TRUE)
+df$job <- as.numeric(as.factor(df$job))
+df$marital <- as.numeric(as.factor(df$marital))
+df$education <- as.numeric(as.factor(df$education))
+df$default <- as.numeric(as.factor(df$default))
+df$housing <- as.numeric(as.factor(df$housing))
+df$loan <- as.numeric(as.factor(df$loan))
+df$contact <- as.numeric(as.factor(df$contact))
+df$month <- as.numeric(as.factor(df$month))
+df$poutcome <- as.numeric(as.factor(df$poutcome))
+df$y <- as.numeric(as.factor(df$y))
+
+x <- df[, -which(names(df) == "y")]
+y <- df$y
 ```
 
 The next step is to run the model by calling the `our_lm` function.
 
 ```{r}
 model <- our_lm(y, x, alpha = 0.05)
-model
 ```
 
 The individual results returned from the model can be obtained by running a command similar to below.
