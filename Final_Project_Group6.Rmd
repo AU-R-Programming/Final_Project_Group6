@@ -77,7 +77,7 @@ our_lm = function(y, X, alpha = 0.05) {
 ```{r initialize}
 x <- matrix(rnorm(400), ncol = 4) # so this is a 100x4 predictor matrix 
 y <- rnorm(100)
-model <- our_lm(y, X, alpha = 0.05)
+model <- our_lm(y, x, alpha = 0.05)
 model
 ```
 
