@@ -56,8 +56,282 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-Implements simple linear regression and evaluates the model on several metrics. 
-    Different plots for the residuals are also available.
+<div class="section level1">
+<div class="page-header"><h1 id="finalprojectgroup6">FinalProjectGroup6<a class="anchor" aria-label="anchor" href="#finalprojectgroup6"></a>
+</h1></div>
+<p>Before running our linear regression model, it is necessary to initialize the two input variables: <code>x</code>: matrix with number of rows representing the number of response (explanatory) variable <code>y</code>: vector representing the predictions</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">FinalProjectGroup6</span><span class="op">)</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">400</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></code></pre></div>
+<p>The next step is to run the model by calling the <code>our_lm</code> function.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/our_lm.html">our_lm</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">## Warning in sqrt(var.beta): NaNs produced</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">## Warning in sqrt(var.beta): NaNs produced</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">## $beta</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co">## [1] -0.286603691 -0.006483694  0.044756422  0.118772423</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">## </span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">## $sigma2</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">##          [,1]</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">## [1,] 4.365401</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">## </span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">## $variance_beta</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">##              [,1]          [,2]          [,3]         [,4]</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">## [1,]  0.053168932 -0.0014419677 -0.0046481788  0.004687015</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">## [2,] -0.001441968  0.0389768967  0.0007322328 -0.003417409</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">## [3,] -0.004648179  0.0007322328  0.0407277192 -0.002604046</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co">## [4,]  0.004687015 -0.0034174087 -0.0026040461  0.041372484</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co">## </span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="co">## $r_squared</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="co">## [1] 0.06066152</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="co">## </span></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="co">## $mallow</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="co">##          [,1]</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="co">## [1,] 139.6928</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="co">## </span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="co">## $f_stat</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a><span class="co">## [1] 2.964502</span></span>
+<span id="cb5-24"><a href="#cb5-24"></a><span class="co">## </span></span>
+<span id="cb5-25"><a href="#cb5-25"></a><span class="co">## $p_value</span></span>
+<span id="cb5-26"><a href="#cb5-26"></a><span class="co">## [1] 0.03592672</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a><span class="co">## </span></span>
+<span id="cb5-28"><a href="#cb5-28"></a><span class="co">## $ci</span></span>
+<span id="cb5-29"><a href="#cb5-29"></a><span class="co">##  [1] -0.738539820          NaN          NaN -0.015410192          NaN</span></span>
+<span id="cb5-30"><a href="#cb5-30"></a><span class="co">##  [6] -0.393430904 -0.008279811          NaN          NaN -0.059519927</span></span>
+<span id="cb5-31"><a href="#cb5-31"></a><span class="co">## [11] -0.350786062          NaN -0.420786306          NaN          NaN</span></span>
+<span id="cb5-32"><a href="#cb5-32"></a><span class="co">## [16] -0.279888701  0.165332437          NaN          NaN  0.252955038</span></span>
+<span id="cb5-33"><a href="#cb5-33"></a><span class="co">## [21]          NaN  0.380463517  0.097792655          NaN          NaN</span></span>
+<span id="cb5-34"><a href="#cb5-34"></a><span class="co">## [26]  0.046552539  0.440298905          NaN -0.152421076          NaN</span></span>
+<span id="cb5-35"><a href="#cb5-35"></a><span class="co">## [31]          NaN  0.517433547</span></span>
+<span id="cb5-36"><a href="#cb5-36"></a><span class="co">## </span></span>
+<span id="cb5-37"><a href="#cb5-37"></a><span class="co">## $res</span></span>
+<span id="cb5-38"><a href="#cb5-38"></a><span class="co">##               [,1]</span></span>
+<span id="cb5-39"><a href="#cb5-39"></a><span class="co">##   [1,] -1.42978526</span></span>
+<span id="cb5-40"><a href="#cb5-40"></a><span class="co">##   [2,]  1.21396146</span></span>
+<span id="cb5-41"><a href="#cb5-41"></a><span class="co">##   [3,] -0.34316335</span></span>
+<span id="cb5-42"><a href="#cb5-42"></a><span class="co">##   [4,] -1.75606563</span></span>
+<span id="cb5-43"><a href="#cb5-43"></a><span class="co">##   [5,]  1.23014242</span></span>
+<span id="cb5-44"><a href="#cb5-44"></a><span class="co">##   [6,]  1.37282381</span></span>
+<span id="cb5-45"><a href="#cb5-45"></a><span class="co">##   [7,]  1.70169821</span></span>
+<span id="cb5-46"><a href="#cb5-46"></a><span class="co">##   [8,] -1.48296597</span></span>
+<span id="cb5-47"><a href="#cb5-47"></a><span class="co">##   [9,] -2.47435193</span></span>
+<span id="cb5-48"><a href="#cb5-48"></a><span class="co">##  [10,]  0.87632494</span></span>
+<span id="cb5-49"><a href="#cb5-49"></a><span class="co">##  [11,] -0.05204564</span></span>
+<span id="cb5-50"><a href="#cb5-50"></a><span class="co">##  [12,] -1.00074992</span></span>
+<span id="cb5-51"><a href="#cb5-51"></a><span class="co">##  [13,]  0.85684743</span></span>
+<span id="cb5-52"><a href="#cb5-52"></a><span class="co">##  [14,] -1.12641891</span></span>
+<span id="cb5-53"><a href="#cb5-53"></a><span class="co">##  [15,]  1.04368946</span></span>
+<span id="cb5-54"><a href="#cb5-54"></a><span class="co">##  [16,]  1.36509322</span></span>
+<span id="cb5-55"><a href="#cb5-55"></a><span class="co">##  [17,]  0.59102679</span></span>
+<span id="cb5-56"><a href="#cb5-56"></a><span class="co">##  [18,]  0.10462481</span></span>
+<span id="cb5-57"><a href="#cb5-57"></a><span class="co">##  [19,]  0.68640175</span></span>
+<span id="cb5-58"><a href="#cb5-58"></a><span class="co">##  [20,]  0.19764595</span></span>
+<span id="cb5-59"><a href="#cb5-59"></a><span class="co">##  [21,] -0.31216362</span></span>
+<span id="cb5-60"><a href="#cb5-60"></a><span class="co">##  [22,] -0.61168389</span></span>
+<span id="cb5-61"><a href="#cb5-61"></a><span class="co">##  [23,]  0.21212316</span></span>
+<span id="cb5-62"><a href="#cb5-62"></a><span class="co">##  [24,] -1.88751945</span></span>
+<span id="cb5-63"><a href="#cb5-63"></a><span class="co">##  [25,]  1.20591373</span></span>
+<span id="cb5-64"><a href="#cb5-64"></a><span class="co">##  [26,]  1.30325146</span></span>
+<span id="cb5-65"><a href="#cb5-65"></a><span class="co">##  [27,] -0.32149692</span></span>
+<span id="cb5-66"><a href="#cb5-66"></a><span class="co">##  [28,]  0.69220816</span></span>
+<span id="cb5-67"><a href="#cb5-67"></a><span class="co">##  [29,] -0.68606194</span></span>
+<span id="cb5-68"><a href="#cb5-68"></a><span class="co">##  [30,] -1.17843795</span></span>
+<span id="cb5-69"><a href="#cb5-69"></a><span class="co">##  [31,]  0.33888758</span></span>
+<span id="cb5-70"><a href="#cb5-70"></a><span class="co">##  [32,] -0.08859972</span></span>
+<span id="cb5-71"><a href="#cb5-71"></a><span class="co">##  [33,]  0.44787493</span></span>
+<span id="cb5-72"><a href="#cb5-72"></a><span class="co">##  [34,] -0.75231044</span></span>
+<span id="cb5-73"><a href="#cb5-73"></a><span class="co">##  [35,] -1.70656065</span></span>
+<span id="cb5-74"><a href="#cb5-74"></a><span class="co">##  [36,]  0.91646305</span></span>
+<span id="cb5-75"><a href="#cb5-75"></a><span class="co">##  [37,] -0.02994495</span></span>
+<span id="cb5-76"><a href="#cb5-76"></a><span class="co">##  [38,] -1.00656846</span></span>
+<span id="cb5-77"><a href="#cb5-77"></a><span class="co">##  [39,]  0.60597380</span></span>
+<span id="cb5-78"><a href="#cb5-78"></a><span class="co">##  [40,]  0.76356530</span></span>
+<span id="cb5-79"><a href="#cb5-79"></a><span class="co">##  [41,]  2.30319467</span></span>
+<span id="cb5-80"><a href="#cb5-80"></a><span class="co">##  [42,] -1.94445644</span></span>
+<span id="cb5-81"><a href="#cb5-81"></a><span class="co">##  [43,]  0.15855977</span></span>
+<span id="cb5-82"><a href="#cb5-82"></a><span class="co">##  [44,]  0.44239646</span></span>
+<span id="cb5-83"><a href="#cb5-83"></a><span class="co">##  [45,] -0.82297922</span></span>
+<span id="cb5-84"><a href="#cb5-84"></a><span class="co">##  [46,]  1.28107724</span></span>
+<span id="cb5-85"><a href="#cb5-85"></a><span class="co">##  [47,]  0.08696255</span></span>
+<span id="cb5-86"><a href="#cb5-86"></a><span class="co">##  [48,] -1.28989845</span></span>
+<span id="cb5-87"><a href="#cb5-87"></a><span class="co">##  [49,] -0.86296606</span></span>
+<span id="cb5-88"><a href="#cb5-88"></a><span class="co">##  [50,]  0.64632219</span></span>
+<span id="cb5-89"><a href="#cb5-89"></a><span class="co">##  [51,] -0.20442220</span></span>
+<span id="cb5-90"><a href="#cb5-90"></a><span class="co">##  [52,] -0.21511975</span></span>
+<span id="cb5-91"><a href="#cb5-91"></a><span class="co">##  [53,] -0.25597170</span></span>
+<span id="cb5-92"><a href="#cb5-92"></a><span class="co">##  [54,]  0.08244698</span></span>
+<span id="cb5-93"><a href="#cb5-93"></a><span class="co">##  [55,] -0.16374398</span></span>
+<span id="cb5-94"><a href="#cb5-94"></a><span class="co">##  [56,] -0.18470184</span></span>
+<span id="cb5-95"><a href="#cb5-95"></a><span class="co">##  [57,]  0.02568051</span></span>
+<span id="cb5-96"><a href="#cb5-96"></a><span class="co">##  [58,]  0.57108445</span></span>
+<span id="cb5-97"><a href="#cb5-97"></a><span class="co">##  [59,] -1.06336601</span></span>
+<span id="cb5-98"><a href="#cb5-98"></a><span class="co">##  [60,] -1.53243024</span></span>
+<span id="cb5-99"><a href="#cb5-99"></a><span class="co">##  [61,]  1.08597375</span></span>
+<span id="cb5-100"><a href="#cb5-100"></a><span class="co">##  [62,]  1.12820234</span></span>
+<span id="cb5-101"><a href="#cb5-101"></a><span class="co">##  [63,]  0.82179439</span></span>
+<span id="cb5-102"><a href="#cb5-102"></a><span class="co">##  [64,]  0.10919957</span></span>
+<span id="cb5-103"><a href="#cb5-103"></a><span class="co">##  [65,]  0.35023255</span></span>
+<span id="cb5-104"><a href="#cb5-104"></a><span class="co">##  [66,] -0.75052370</span></span>
+<span id="cb5-105"><a href="#cb5-105"></a><span class="co">##  [67,] -2.02573097</span></span>
+<span id="cb5-106"><a href="#cb5-106"></a><span class="co">##  [68,] -1.02760452</span></span>
+<span id="cb5-107"><a href="#cb5-107"></a><span class="co">##  [69,]  0.32530813</span></span>
+<span id="cb5-108"><a href="#cb5-108"></a><span class="co">##  [70,]  0.77515379</span></span>
+<span id="cb5-109"><a href="#cb5-109"></a><span class="co">##  [71,]  0.10176946</span></span>
+<span id="cb5-110"><a href="#cb5-110"></a><span class="co">##  [72,]  0.02557053</span></span>
+<span id="cb5-111"><a href="#cb5-111"></a><span class="co">##  [73,] -0.85642720</span></span>
+<span id="cb5-112"><a href="#cb5-112"></a><span class="co">##  [74,]  0.07757177</span></span>
+<span id="cb5-113"><a href="#cb5-113"></a><span class="co">##  [75,] -0.45579381</span></span>
+<span id="cb5-114"><a href="#cb5-114"></a><span class="co">##  [76,] -0.36338970</span></span>
+<span id="cb5-115"><a href="#cb5-115"></a><span class="co">##  [77,] -0.87808095</span></span>
+<span id="cb5-116"><a href="#cb5-116"></a><span class="co">##  [78,]  0.25558957</span></span>
+<span id="cb5-117"><a href="#cb5-117"></a><span class="co">##  [79,]  0.13065555</span></span>
+<span id="cb5-118"><a href="#cb5-118"></a><span class="co">##  [80,]  1.62233854</span></span>
+<span id="cb5-119"><a href="#cb5-119"></a><span class="co">##  [81,] -2.37594319</span></span>
+<span id="cb5-120"><a href="#cb5-120"></a><span class="co">##  [82,] -0.22132829</span></span>
+<span id="cb5-121"><a href="#cb5-121"></a><span class="co">##  [83,]  0.40099642</span></span>
+<span id="cb5-122"><a href="#cb5-122"></a><span class="co">##  [84,] -2.03680816</span></span>
+<span id="cb5-123"><a href="#cb5-123"></a><span class="co">##  [85,] -0.81656697</span></span>
+<span id="cb5-124"><a href="#cb5-124"></a><span class="co">##  [86,]  1.17385817</span></span>
+<span id="cb5-125"><a href="#cb5-125"></a><span class="co">##  [87,] -0.81029350</span></span>
+<span id="cb5-126"><a href="#cb5-126"></a><span class="co">##  [88,]  0.46026449</span></span>
+<span id="cb5-127"><a href="#cb5-127"></a><span class="co">##  [89,] -0.47467421</span></span>
+<span id="cb5-128"><a href="#cb5-128"></a><span class="co">##  [90,] -0.54274375</span></span>
+<span id="cb5-129"><a href="#cb5-129"></a><span class="co">##  [91,]  0.54392551</span></span>
+<span id="cb5-130"><a href="#cb5-130"></a><span class="co">##  [92,]  0.07563725</span></span>
+<span id="cb5-131"><a href="#cb5-131"></a><span class="co">##  [93,] -0.51079102</span></span>
+<span id="cb5-132"><a href="#cb5-132"></a><span class="co">##  [94,]  1.19728512</span></span>
+<span id="cb5-133"><a href="#cb5-133"></a><span class="co">##  [95,] -0.54971074</span></span>
+<span id="cb5-134"><a href="#cb5-134"></a><span class="co">##  [96,] -1.23325619</span></span>
+<span id="cb5-135"><a href="#cb5-135"></a><span class="co">##  [97,] -1.02183631</span></span>
+<span id="cb5-136"><a href="#cb5-136"></a><span class="co">##  [98,]  1.72210053</span></span>
+<span id="cb5-137"><a href="#cb5-137"></a><span class="co">##  [99,]  0.56462911</span></span>
+<span id="cb5-138"><a href="#cb5-138"></a><span class="co">## [100,] -2.28455632</span></span>
+<span id="cb5-139"><a href="#cb5-139"></a><span class="co">## </span></span>
+<span id="cb5-140"><a href="#cb5-140"></a><span class="co">## $preds</span></span>
+<span id="cb5-141"><a href="#cb5-141"></a><span class="co">##                [,1]</span></span>
+<span id="cb5-142"><a href="#cb5-142"></a><span class="co">##   [1,] -0.028630630</span></span>
+<span id="cb5-143"><a href="#cb5-143"></a><span class="co">##   [2,] -0.019072954</span></span>
+<span id="cb5-144"><a href="#cb5-144"></a><span class="co">##   [3,]  0.168387447</span></span>
+<span id="cb5-145"><a href="#cb5-145"></a><span class="co">##   [4,] -0.142149670</span></span>
+<span id="cb5-146"><a href="#cb5-146"></a><span class="co">##   [5,]  0.249122453</span></span>
+<span id="cb5-147"><a href="#cb5-147"></a><span class="co">##   [6,] -0.186310842</span></span>
+<span id="cb5-148"><a href="#cb5-148"></a><span class="co">##   [7,] -0.148775170</span></span>
+<span id="cb5-149"><a href="#cb5-149"></a><span class="co">##   [8,]  0.115223965</span></span>
+<span id="cb5-150"><a href="#cb5-150"></a><span class="co">##   [9,] -0.052369829</span></span>
+<span id="cb5-151"><a href="#cb5-151"></a><span class="co">##  [10,]  0.057015223</span></span>
+<span id="cb5-152"><a href="#cb5-152"></a><span class="co">##  [11,] -0.135802841</span></span>
+<span id="cb5-153"><a href="#cb5-153"></a><span class="co">##  [12,]  0.283384263</span></span>
+<span id="cb5-154"><a href="#cb5-154"></a><span class="co">##  [13,]  0.065041945</span></span>
+<span id="cb5-155"><a href="#cb5-155"></a><span class="co">##  [14,] -0.352451166</span></span>
+<span id="cb5-156"><a href="#cb5-156"></a><span class="co">##  [15,] -0.065770236</span></span>
+<span id="cb5-157"><a href="#cb5-157"></a><span class="co">##  [16,] -0.089520784</span></span>
+<span id="cb5-158"><a href="#cb5-158"></a><span class="co">##  [17,]  0.179476504</span></span>
+<span id="cb5-159"><a href="#cb5-159"></a><span class="co">##  [18,] -0.133409371</span></span>
+<span id="cb5-160"><a href="#cb5-160"></a><span class="co">##  [19,] -0.190343432</span></span>
+<span id="cb5-161"><a href="#cb5-161"></a><span class="co">##  [20,] -0.028631139</span></span>
+<span id="cb5-162"><a href="#cb5-162"></a><span class="co">##  [21,] -0.181488417</span></span>
+<span id="cb5-163"><a href="#cb5-163"></a><span class="co">##  [22,] -0.106714619</span></span>
+<span id="cb5-164"><a href="#cb5-164"></a><span class="co">##  [23,]  0.142826023</span></span>
+<span id="cb5-165"><a href="#cb5-165"></a><span class="co">##  [24,]  0.043655183</span></span>
+<span id="cb5-166"><a href="#cb5-166"></a><span class="co">##  [25,]  0.058081788</span></span>
+<span id="cb5-167"><a href="#cb5-167"></a><span class="co">##  [26,] -0.304074568</span></span>
+<span id="cb5-168"><a href="#cb5-168"></a><span class="co">##  [27,] -0.213156677</span></span>
+<span id="cb5-169"><a href="#cb5-169"></a><span class="co">##  [28,] -0.835303347</span></span>
+<span id="cb5-170"><a href="#cb5-170"></a><span class="co">##  [29,] -0.202466588</span></span>
+<span id="cb5-171"><a href="#cb5-171"></a><span class="co">##  [30,]  0.373810135</span></span>
+<span id="cb5-172"><a href="#cb5-172"></a><span class="co">##  [31,] -0.375666559</span></span>
+<span id="cb5-173"><a href="#cb5-173"></a><span class="co">##  [32,]  0.420374858</span></span>
+<span id="cb5-174"><a href="#cb5-174"></a><span class="co">##  [33,] -0.271746228</span></span>
+<span id="cb5-175"><a href="#cb5-175"></a><span class="co">##  [34,]  0.035773210</span></span>
+<span id="cb5-176"><a href="#cb5-176"></a><span class="co">##  [35,] -0.669881220</span></span>
+<span id="cb5-177"><a href="#cb5-177"></a><span class="co">##  [36,] -0.099456180</span></span>
+<span id="cb5-178"><a href="#cb5-178"></a><span class="co">##  [37,]  0.160831363</span></span>
+<span id="cb5-179"><a href="#cb5-179"></a><span class="co">##  [38,] -0.387491472</span></span>
+<span id="cb5-180"><a href="#cb5-180"></a><span class="co">##  [39,] -0.094062554</span></span>
+<span id="cb5-181"><a href="#cb5-181"></a><span class="co">##  [40,] -0.295368804</span></span>
+<span id="cb5-182"><a href="#cb5-182"></a><span class="co">##  [41,]  0.344577651</span></span>
+<span id="cb5-183"><a href="#cb5-183"></a><span class="co">##  [42,]  0.311543280</span></span>
+<span id="cb5-184"><a href="#cb5-184"></a><span class="co">##  [43,] -0.204839932</span></span>
+<span id="cb5-185"><a href="#cb5-185"></a><span class="co">##  [44,] -0.393996602</span></span>
+<span id="cb5-186"><a href="#cb5-186"></a><span class="co">##  [45,] -0.039162883</span></span>
+<span id="cb5-187"><a href="#cb5-187"></a><span class="co">##  [46,]  0.103412711</span></span>
+<span id="cb5-188"><a href="#cb5-188"></a><span class="co">##  [47,]  0.112868239</span></span>
+<span id="cb5-189"><a href="#cb5-189"></a><span class="co">##  [48,]  0.074184786</span></span>
+<span id="cb5-190"><a href="#cb5-190"></a><span class="co">##  [49,] -0.141669171</span></span>
+<span id="cb5-191"><a href="#cb5-191"></a><span class="co">##  [50,]  0.366318035</span></span>
+<span id="cb5-192"><a href="#cb5-192"></a><span class="co">##  [51,]  0.133937115</span></span>
+<span id="cb5-193"><a href="#cb5-193"></a><span class="co">##  [52,]  0.402604642</span></span>
+<span id="cb5-194"><a href="#cb5-194"></a><span class="co">##  [53,] -0.003577533</span></span>
+<span id="cb5-195"><a href="#cb5-195"></a><span class="co">##  [54,]  0.139164518</span></span>
+<span id="cb5-196"><a href="#cb5-196"></a><span class="co">##  [55,]  0.236467669</span></span>
+<span id="cb5-197"><a href="#cb5-197"></a><span class="co">##  [56,] -0.102432425</span></span>
+<span id="cb5-198"><a href="#cb5-198"></a><span class="co">##  [57,] -0.264375366</span></span>
+<span id="cb5-199"><a href="#cb5-199"></a><span class="co">##  [58,]  0.319343609</span></span>
+<span id="cb5-200"><a href="#cb5-200"></a><span class="co">##  [59,]  0.143700854</span></span>
+<span id="cb5-201"><a href="#cb5-201"></a><span class="co">##  [60,] -0.118752075</span></span>
+<span id="cb5-202"><a href="#cb5-202"></a><span class="co">##  [61,]  0.385040710</span></span>
+<span id="cb5-203"><a href="#cb5-203"></a><span class="co">##  [62,] -0.950332580</span></span>
+<span id="cb5-204"><a href="#cb5-204"></a><span class="co">##  [63,]  0.201693506</span></span>
+<span id="cb5-205"><a href="#cb5-205"></a><span class="co">##  [64,]  0.243612049</span></span>
+<span id="cb5-206"><a href="#cb5-206"></a><span class="co">##  [65,]  0.372051239</span></span>
+<span id="cb5-207"><a href="#cb5-207"></a><span class="co">##  [66,] -0.085228255</span></span>
+<span id="cb5-208"><a href="#cb5-208"></a><span class="co">##  [67,] -0.198532416</span></span>
+<span id="cb5-209"><a href="#cb5-209"></a><span class="co">##  [68,] -0.011983971</span></span>
+<span id="cb5-210"><a href="#cb5-210"></a><span class="co">##  [69,] -0.806539041</span></span>
+<span id="cb5-211"><a href="#cb5-211"></a><span class="co">##  [70,]  0.443861309</span></span>
+<span id="cb5-212"><a href="#cb5-212"></a><span class="co">##  [71,]  0.154117009</span></span>
+<span id="cb5-213"><a href="#cb5-213"></a><span class="co">##  [72,] -0.041624107</span></span>
+<span id="cb5-214"><a href="#cb5-214"></a><span class="co">##  [73,]  0.059339261</span></span>
+<span id="cb5-215"><a href="#cb5-215"></a><span class="co">##  [74,] -0.701791688</span></span>
+<span id="cb5-216"><a href="#cb5-216"></a><span class="co">##  [75,]  0.284497269</span></span>
+<span id="cb5-217"><a href="#cb5-217"></a><span class="co">##  [76,] -0.223156377</span></span>
+<span id="cb5-218"><a href="#cb5-218"></a><span class="co">##  [77,] -0.479265383</span></span>
+<span id="cb5-219"><a href="#cb5-219"></a><span class="co">##  [78,] -0.364106279</span></span>
+<span id="cb5-220"><a href="#cb5-220"></a><span class="co">##  [79,]  0.017096528</span></span>
+<span id="cb5-221"><a href="#cb5-221"></a><span class="co">##  [80,]  0.415785833</span></span>
+<span id="cb5-222"><a href="#cb5-222"></a><span class="co">##  [81,] -0.098647010</span></span>
+<span id="cb5-223"><a href="#cb5-223"></a><span class="co">##  [82,] -0.260444916</span></span>
+<span id="cb5-224"><a href="#cb5-224"></a><span class="co">##  [83,] -0.125690679</span></span>
+<span id="cb5-225"><a href="#cb5-225"></a><span class="co">##  [84,] -0.197348837</span></span>
+<span id="cb5-226"><a href="#cb5-226"></a><span class="co">##  [85,] -0.064797505</span></span>
+<span id="cb5-227"><a href="#cb5-227"></a><span class="co">##  [86,]  0.150755588</span></span>
+<span id="cb5-228"><a href="#cb5-228"></a><span class="co">##  [87,]  0.149804829</span></span>
+<span id="cb5-229"><a href="#cb5-229"></a><span class="co">##  [88,] -0.316675491</span></span>
+<span id="cb5-230"><a href="#cb5-230"></a><span class="co">##  [89,]  0.215705627</span></span>
+<span id="cb5-231"><a href="#cb5-231"></a><span class="co">##  [90,] -0.320154824</span></span>
+<span id="cb5-232"><a href="#cb5-232"></a><span class="co">##  [91,] -0.188551083</span></span>
+<span id="cb5-233"><a href="#cb5-233"></a><span class="co">##  [92,] -0.437669337</span></span>
+<span id="cb5-234"><a href="#cb5-234"></a><span class="co">##  [93,] -0.104326475</span></span>
+<span id="cb5-235"><a href="#cb5-235"></a><span class="co">##  [94,] -0.403619608</span></span>
+<span id="cb5-236"><a href="#cb5-236"></a><span class="co">##  [95,]  0.316318272</span></span>
+<span id="cb5-237"><a href="#cb5-237"></a><span class="co">##  [96,] -0.167898960</span></span>
+<span id="cb5-238"><a href="#cb5-238"></a><span class="co">##  [97,] -0.360666606</span></span>
+<span id="cb5-239"><a href="#cb5-239"></a><span class="co">##  [98,] -0.715147206</span></span>
+<span id="cb5-240"><a href="#cb5-240"></a><span class="co">##  [99,]  0.374636010</span></span>
+<span id="cb5-241"><a href="#cb5-241"></a><span class="co">## [100,]  0.359670914</span></span></code></pre></div>
+<p>The individual results returned from the model can be obtained by running a command similar to below.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># F-statistic</span>
+<span class="va">model</span><span class="op">$</span><span class="va">f_stat</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">## [1] 2.964502</span></span></code></pre></div>
+<p>Plots for the residuals can also be generated.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># residuals vs fitted-values</span>
+<span class="fu"><a href="reference/res_plot.html">res_plot</a></span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">res</span>, <span class="va">model</span><span class="op">$</span><span class="va">preds</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-4-1.png"><!-- --></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># qq-plot</span>
+<span class="fu"><a href="reference/qq_plot.html">qq_plot</a></span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">res</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-4-2.png"><!-- --></p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># histogram</span>
+<span class="fu"><a href="reference/histogram.html">histogram</a></span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">res</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-4-3.png"><!-- --></p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -9,6 +9,7 @@ Before running our linear regression model, it is necessary to initialize the tw
   `y`: vector representing the predictions
   
 ```{r}
+library(FinalProjectGroup6)
 x <- matrix(rnorm(400), ncol = 4)
 y <- rnorm(100)
 ```
