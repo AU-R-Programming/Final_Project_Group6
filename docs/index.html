@@ -56,8 +56,53 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-Implements simple linear regression and evaluates the model on several metrics. 
-    Different plots for the residuals are also available.
+<div class="section level1">
+<div class="page-header"><h1 id="finalprojectgroup6">FinalProjectGroup6<a class="anchor" aria-label="anchor" href="#finalprojectgroup6"></a>
+</h1></div>
+<p>Before running our linear regression model, it is necessary to initialize the two input variables:<br><code>x</code>: matrix with number of rows representing the number of response (explanatory) variable<br><code>y</code>: vector representing the predictions</p>
+<p>We are using the <code>bank.csv</code> dataset as an example.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">FinalProjectGroup6</span><span class="op">)</span>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv2</a></span><span class="op">(</span><span class="st">"bank.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">job</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">job</span><span class="op">)</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">marital</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">marital</span><span class="op">)</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">education</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">education</span><span class="op">)</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">default</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">default</span><span class="op">)</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">housing</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">housing</span><span class="op">)</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">loan</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">loan</span><span class="op">)</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">contact</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">contact</span><span class="op">)</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">month</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">month</span><span class="op">)</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">poutcome</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">poutcome</span><span class="op">)</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">y</span><span class="op">)</span><span class="op">)</span>
+
+
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="va">df</span><span class="op">[</span>, <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">==</span> <span class="st">"y"</span><span class="op">)</span><span class="op">]</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="va">df</span><span class="op">$</span><span class="va">y</span></code></pre></div>
+<p>The next step is to run the model by calling the <code>our_lm</code> function.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/our_lm.html">our_lm</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">## Warning in sqrt(var.beta): NaNs produced</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">## Warning in sqrt(var.beta): NaNs produced</span></span></code></pre></div>
+<p>The individual results returned from the model can be obtained by running a command similar to below.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># F-statistic</span>
+<span class="va">model</span><span class="op">$</span><span class="va">f_stat</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">## [1] 297.2033</span></span></code></pre></div>
+<p>Plots for the residuals can also be generated.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># residuals vs fitted-values</span>
+<span class="fu"><a href="reference/res_plot.html">res_plot</a></span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">res</span>, <span class="va">model</span><span class="op">$</span><span class="va">preds</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-4-1.png"><!-- --></p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># qq-plot</span>
+<span class="fu"><a href="reference/qq_plot.html">qq_plot</a></span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">res</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-4-2.png"><!-- --></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># histogram</span>
+<span class="fu"><a href="reference/histogram.html">histogram</a></span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">res</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-4-3.png"><!-- --></p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
