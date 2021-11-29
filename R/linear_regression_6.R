@@ -20,7 +20,7 @@ minimize = function(y, X, beta0) {
 #'      \item{mallow}{Mallow's \code{C_p}}
 #'      \item{f_stat}{F-statistic}
 #'      \item{p_value}{Determined by F-statistic}
-#'      \item{ci}{Interval of values based on \code{alpha}}
+#'      \item{ci}{Confidence Intervals based on \code{alpha}}
 #'      \item{res}{Model Residuals}
 #'      \item{preds}{Model Predictions}
 #' }
@@ -38,7 +38,7 @@ our_lm = function(y, X, alpha = 0.05) {
 
   # Make sure data formats are appropriate
   y <- as.vector(y)
-  covariates <- as.matrix(X)
+  X <- as.matrix(X)
 
   # Define parameters
   n <- length(y)
