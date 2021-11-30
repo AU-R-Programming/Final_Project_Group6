@@ -1,10 +1,5 @@
 ## Linear Regression
 
-# defining the cost function
-minimize = function(y, X, beta0) {
-  R <- sum((y - X%*%beta0)^2)
-}
-
 #' @title Linear Regression
 #'
 #' @description Estimates a vector for the model coefficients. It also computes model evaluation metrics.
@@ -34,23 +29,24 @@ minimize = function(y, X, beta0) {
 #' y <- rnorm(100)
 #' model <- our_lm(y, x, alpha = 0.05)
 #' model
-our_lm = function(y, X, alpha = 0.05) {
+our_lm = function(y, x, alpha = 0.05) {
 
-  # Make sure data formats are appropriate
+  x <- as.matrix(x)
+  x <- na.omit(x)
   y <- as.vector(y)
-  X <- as.matrix(X)
-
-  # Define parameters
+  X <- cbind(rep(1, dim(x)[1]), x)
+  p <- ncol(X)
   n <- length(y)
-  p <- dim(X)[2]
   df <- n - p
 
-  beta0 <- rep(NA, ncol(X))
+  beta0 <- rep(NA, p)
   beta0[1] <- mean(y)
 
-  for (i in 2:ncol(X)){
+  for (i in 2:p){
     beta0[i] <- cov(X[,i],y)/var(X[,i])
   }
+
+  minimize = function(y, X, beta0) {sum((y - X%*%beta0)^2)}
 
   # Estimate beta
   m <- optim(par = beta0, fn = minimize, y = y, X = X)

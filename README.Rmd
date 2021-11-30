@@ -27,13 +27,17 @@ df$y <- as.numeric(as.factor(df$y))
 
 
 x <- df[, -which(names(df) == "y")]
+x <- x[c("age", "balance", "duration")]
 y <- df$y
 ```
 
-The next step is to run the model by calling the `our_lm` function.
+The next step is to run the model by calling the `our_lm` function. We compare our results to those of the built-in `lm` function. We can see that the results are very similar.
 
 ```{r}
 model <- our_lm(y, x, alpha = 0.05)
+model2 <- lm(y ~ x$age + x$balance + df$duration)
+model$beta
+model2$coefficients
 ```
 
 The individual results returned from the model can be obtained by running a command similar to below.

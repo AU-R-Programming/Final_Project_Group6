@@ -2,7 +2,7 @@
 # FinalProjectGroup6
 
 [Package Repository:
-FinalProjectGroup6](https://github.com/AU-R-Programming/Final_Project_Group6)
+Final\_Project\_Group6](https://github.com/AU-R-Programming/Final_Project_Group6)
 
 Before running our linear regression model, it is necessary to
 initialize the two input variables:  
@@ -28,10 +28,13 @@ df$y <- as.numeric(as.factor(df$y))
 
 
 x <- df[, -which(names(df) == "y")]
+x <- x[c("age", "balance", "duration")]
 y <- df$y
 ```
 
-The next step is to run the model by calling the `our_lm` function.
+The next step is to run the model by calling the `our_lm` function. We
+compare our results to those of the built-in `lm` function. We can see
+that the results are very similar.
 
 ``` r
 model <- our_lm(y, x, alpha = 0.05)
@@ -41,6 +44,20 @@ model <- our_lm(y, x, alpha = 0.05)
     
     ## Warning in sqrt(var.beta): NaNs produced
 
+``` r
+model2 <- lm(y ~ x$age + x$balance + df$duration)
+model$beta
+```
+
+    ## [1] 9.266616e-01 1.342707e-03 2.178674e-06 4.933943e-04
+
+``` r
+model2$coefficients
+```
+
+    ##  (Intercept)        x$age    x$balance  df$duration 
+    ## 9.267811e-01 1.338111e-03 2.185320e-06 4.934805e-04
+
 The individual results returned from the model can be obtained by
 running a command similar to below.
 
@@ -49,7 +66,7 @@ running a command similar to below.
 model$f_stat
 ```
 
-    ## [1] 297.2033
+    ## [1] 294.0769
 
 Plots for the residuals can also be generated.
 

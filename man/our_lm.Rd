@@ -4,14 +4,14 @@
 \alias{our_lm}
 \title{Linear Regression}
 \usage{
-our_lm(y, X, alpha = 0.05)
+our_lm(y, x, alpha = 0.05)
 }
 \arguments{
 \item{y}{A \code{vector} of length \code{n} that represents the response variable of interest that we would like to explain/predict.}
 
-\item{X}{A \code{matrix} of dimension \code{n x p} that represents the independent (explanatory) variables.}
-
 \item{alpha}{A \code{numeric} (double) used to denote the significance level.}
+
+\item{X}{A \code{matrix} of dimension \code{n x p} that represents the independent (explanatory) variables.}
 }
 \value{
 A \code{list} containing the following attributes:
@@ -23,7 +23,7 @@ A \code{list} containing the following attributes:
      \item{mallow}{Mallow's \code{C_p}}
      \item{f_stat}{F-statistic}
      \item{p_value}{Determined by F-statistic}
-     \item{ci}{Interval of values based on \code{alpha}}
+     \item{ci}{Confidence Intervals based on \code{alpha}}
      \item{res}{Model Residuals}
      \item{preds}{Model Predictions}
 }
