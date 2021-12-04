@@ -55,7 +55,7 @@ model$f_stat
 
 Plots for the residuals can also be generated.
 
-```{r}
+```{r, fig.show='hold'}
 # residuals vs fitted-values
 res_plot(model$res, model$preds)
 

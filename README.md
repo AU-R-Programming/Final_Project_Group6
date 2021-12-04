@@ -73,20 +73,12 @@ Plots for the residuals can also be generated.
 ``` r
 # residuals vs fitted-values
 res_plot(model$res, model$preds)
-```
 
-![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
-
-``` r
 # qq-plot
 qq_plot(model$res)
-```
 
-![](README_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
-
-``` r
 # histogram
 histogram(model$res)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-4-3.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)![](README_files/figure-gfm/unnamed-chunk-4-2.png)![](README_files/figure-gfm/unnamed-chunk-4-3.png)
