@@ -1,5 +1,5 @@
 ---
-title: "Linear Regression"
+title: "Linear Regression - Group 6"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Linear Regression}
@@ -8,12 +8,14 @@ vignette: >
 ---
 
 
-# FinalProjectGroup6
 [Package Repository: Final_Project_Group6](https://github.com/AU-R-Programming/Final_Project_Group6)
 
+The Package name is "FinalProjectGroup6".
+
+
 Before running our linear regression model, it is necessary to initialize the two input variables:\
-  `x`: matrix with number of rows representing the number of response (explanatory) variable\
-  `y`: vector representing the predictions\
+  `x`: matrix with number of rows representing the number of predictors (explanatory) variables\
+  `y`: vector representing the response variable\
   
 We are using the `bank.csv` dataset as an example.
   
@@ -31,13 +33,13 @@ df$month <- as.numeric(as.factor(df$month))
 df$poutcome <- as.numeric(as.factor(df$poutcome))
 df$y <- as.numeric(as.factor(df$y))
 
-
+# defining the input variables
 x <- df[, -which(names(df) == "y")]
-x <- x[c("age", "balance", "duration")]
-y <- df$y
+x <- x[c("age", "balance", "duration")] #selected 3 predictors
+y <- df$y 
 ```
 
-The next step is to run the model by calling the `our_lm` function. We compare our results to those of the built-in `lm` function. We can see that the results are very similar.
+The next step is to run the model by calling the `our_lm` function. We further, compare our results to that of the built-in `lm` function. We can see that the results are very similar.
 
 ```{r}
 model <- our_lm(y, x, alpha = 0.05)
@@ -45,10 +47,12 @@ model2 <- lm(y ~ x$age + x$balance + df$duration)
 model$beta
 model2$coefficients
 ```
-
-The individual results returned from the model can be obtained by running a command similar to below.
+To obtain the desired outputs by subsetting the model to the desired output. For example, we can obtain the p-value and F-statistic of the model by running the following command:
 
 ```{r}
+#p-value
+model$p_value
+
 # F-statistic
 model$f_stat
 ```
