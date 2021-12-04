@@ -1,6 +1,7 @@
 ---
 title: "Linear Regression - Group 6"
 output: rmarkdown::html_vignette
+css: mystyles.css
 vignette: >
   %\VignetteIndexEntry{Linear Regression}
   %\VignetteEngine{knitr::rmarkdown}

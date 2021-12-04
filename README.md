@@ -1,14 +1,14 @@
 
-# FinalProjectGroup6
-
 [Package Repository:
 Final\_Project\_Group6](https://github.com/AU-R-Programming/Final_Project_Group6)
 
+The Package name is “FinalProjectGroup6”.
+
 Before running our linear regression model, it is necessary to
 initialize the two input variables:  
-`x`: matrix with number of rows representing the number of response
-(explanatory) variable  
-`y`: vector representing the predictions  
+`x`: matrix with number of rows representing the number of predictors
+(explanatory) variables  
+`y`: vector representing the response variable  
 
 We are using the `bank.csv` dataset as an example.
 
@@ -26,15 +26,15 @@ df$month <- as.numeric(as.factor(df$month))
 df$poutcome <- as.numeric(as.factor(df$poutcome))
 df$y <- as.numeric(as.factor(df$y))
 
-
+# defining the input variables
 x <- df[, -which(names(df) == "y")]
-x <- x[c("age", "balance", "duration")]
-y <- df$y
+x <- x[c("age", "balance", "duration")] #selected 3 predictors
+y <- df$y 
 ```
 
 The next step is to run the model by calling the `our_lm` function. We
-compare our results to those of the built-in `lm` function. We can see
-that the results are very similar.
+further, compare our results to that of the built-in `lm` function. We
+can see that the results are very similar.
 
 ``` r
 model <- our_lm(y, x, alpha = 0.05)
@@ -58,8 +58,16 @@ model2$coefficients
     ##  (Intercept)        x$age    x$balance  df$duration 
     ## 9.267811e-01 1.338111e-03 2.185320e-06 4.934805e-04
 
-The individual results returned from the model can be obtained by
-running a command similar to below.
+To obtain the desired outputs by subsetting the model to the desired
+output. For example, we can obtain the p-value and F-statistic of the
+model by running the following command:
+
+``` r
+#p-value
+model$p_value
+```
+
+    ## [1] 2.207598e-174
 
 ``` r
 # F-statistic
